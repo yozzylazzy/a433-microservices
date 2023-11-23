@@ -10,5 +10,5 @@ docker tag item-app:v1 yozzy/item-app:v1
 echo $PASSWORD_DOCKER_HUB | docker login -u yozzy --password-stdin
 # push image yang telah dibuat ke docker hub
 docker push yozzy/item-app:v1
-# menjalankan kontainer dalam detach mode pada port 80 dengan nama item-app dengan image dari docker hub dan outputnya dikeluarkan ke log.txt
-docker run -d -p 80:8080 --name item-app yozzy/item-app:v1 > log.txt
+# menjalankan kontainer sesuai docker-compose.yml di keluarkan outputnya ke log.txt
+docker compose up -d > log.txt

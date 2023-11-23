@@ -32,7 +32,7 @@ services:
     image: mongo:3
     # Volume data di item-db container
     volumes:
-      - app-db:/var/lib/mysql
+      - app-db:/data/db
     # Environment variables untuk item-db container (MongoDB)
     environment:
       MYSQL_ROOT_PASSWORD: dicoding

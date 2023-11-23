@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  item-app:
+    image: yozzy/item-app:v1
+    ports:
+      - "80:8080"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: dicoding
+      MYSQL_DB: app-db
+    depends_on:
+      - item-db
+    restart: always
+  item-db:
+    image: mongo:3
+    volumes:
+      - app-db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: dicoding
+      MYSQL_DATABASE: app-db
+    restart: always
+volumes:
+  app-db:

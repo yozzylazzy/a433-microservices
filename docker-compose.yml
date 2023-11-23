@@ -1,28 +1,44 @@
+# Docker Compose version
 version: '3.7'
 
+# Services yang Akan Dibuat Dalam Multi-Container
 services:
+  # Service Untuk Item-App Container
   item-app:
+    # Docker image menggunakan image item-app yang ada di docker hub
     image: yozzy/item-app:v1
+    # Port Mapping Container pada port 8080 dengan port host di 80
     ports:
       - "80:8080"
+    # Woking Directory Container
     working_dir: /app
+    # mount directory ke ./app
     volumes:
       - ./:/app
+    # Environment variables untuk container item-app
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: dicoding
       MYSQL_DB: app-db
+    # Membuat Ketergantungan kepada item-db service
     depends_on:
       - item-db
+    # Restart selalu jika container dalam keadaan mati
     restart: always
+  # Service untuk item-db container
   item-db:
+    # Docker image menggunakan (MongoDB versi 3)
     image: mongo:3
+    # Volume data di item-db container
     volumes:
       - app-db:/var/lib/mysql
+    # Environment variables untuk item-db container (MongoDB)
     environment:
       MYSQL_ROOT_PASSWORD: dicoding
       MYSQL_DATABASE: app-db
+    # Restart selalu jika container dalam keadaan mati
     restart: always
+# Membuat volumes bernama app-db
 volumes:
   app-db:
